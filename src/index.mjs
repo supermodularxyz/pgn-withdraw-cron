@@ -39,6 +39,7 @@ export default async function run({ crossChainMessenger }) {
     );
   } catch (error) {
     console.log("Error handling withdrawals!", error);
+    process.exit(1);
   }
 }
 
@@ -54,4 +55,4 @@ async function fetchWithdrawals() {
 
 const crossChainMessenger = await createCrossChainMessanger();
 
-run({ crossChainMessenger }).catch((err) => process.exit(1));
+run({ crossChainMessenger });
