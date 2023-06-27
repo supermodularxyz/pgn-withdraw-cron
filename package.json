@@ -1,0 +1,20 @@
+{
+  "name": "pgn-withdraw-cron",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "dev": "nodemon --inspect ./src/index.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "dotenv": "^16.3.1",
+    "msw": "^1.2.2",
+    "nodemon": "^2.0.22",
+    "vitest": "^0.32.2"
+  }
+}
