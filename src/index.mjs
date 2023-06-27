@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import { createCrossChainMessanger } from "./crossChainMessanger.mjs";
+
 dotenv.config();
 
 const STATUS = {
