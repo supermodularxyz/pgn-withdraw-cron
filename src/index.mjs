@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import { createCrossChainMessanger } from "./crossChainMessanger.mjs";
+import { createCrossChainMessenger } from "./crossChainMessenger.mjs";
 
 dotenv.config();
 
@@ -14,7 +14,7 @@ export default async function run({ crossChainMessenger }) {
     const withdrawals = await fetchWithdrawals();
 
     console.log(`${withdrawals.length} withdrawals found.`);
-
+    console.log(withdrawals);
     for (const { status, l2_tx_hash: hash } of withdrawals) {
       switch (status) {
         case STATUS.prove: {
@@ -54,6 +54,6 @@ async function fetchWithdrawals() {
     .then((r) => r.items);
 }
 
-const crossChainMessenger = await createCrossChainMessanger();
+const crossChainMessenger = await createCrossChainMessenger();
 
 run({ crossChainMessenger });

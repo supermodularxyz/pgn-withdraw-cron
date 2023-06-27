@@ -10,7 +10,7 @@ const conduitSlug = process.env.CONDUIT_SLUG || "pgn-sepolia-i4td3ji6i0";
 const l1Url = process.env.L1_RPC;
 const l2Url = process.env.L2_RPC;
 
-export async function createCrossChainMessanger() {
+export async function createCrossChainMessenger() {
   console.log("\nCreating Optimism CrossChainMessenger...");
   const l1RpcProvider = new ethers.providers.JsonRpcProvider(l1Url);
   const l2RpcProvider = new ethers.providers.JsonRpcProvider(l2Url);
