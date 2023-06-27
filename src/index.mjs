@@ -52,6 +52,7 @@ async function fetchWithdrawals() {
     .then((r) => r.items);
 }
 
+console.log("\n");
 const crossChainMessenger = await createCrossChainMessanger();
 
 run({ crossChainMessenger });
