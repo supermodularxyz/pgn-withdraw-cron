@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+import { createCrossChainMessanger } from "./crossChainMessanger.mjs";
 dotenv.config();
 
 const STATUS = {
@@ -13,23 +14,25 @@ export default async function run({ crossChainMessenger }) {
 
     console.log(`${withdrawals.length} withdrawals found.`);
 
-    const transactions = await Promise.all(
-      withdrawals.map(async ({ status, l2_tx_hash: hash }) => {
-        switch (status) {
-          case STATUS.prove: {
-            console.log(hash, "Proving...");
-            return crossChainMessenger.proveMessage(hash);
-          }
-          case STATUS.finalize: {
-            console.log(hash, "Finalizing...");
-            return crossChainMessenger.finalizeMessage(hash);
-          }
+    for (const { status, l2_tx_hash: hash } of withdrawals) {
+      switch (status) {
+        case STATUS.prove: {
+          console.log(hash, "Proving...");
+          await crossChainMessenger.proveMessage(hash);
+          console.log(hash, "Proved!");
+          break;
         }
-      })
-    );
+        case STATUS.finalize: {
+          console.log(hash, "Finalizing...");
+          await crossChainMessenger.finalizeMessage(hash);
+          console.log(hash, "Finalized!");
+          break;
+        }
+      }
+    }
 
     console.log(
-      `Processed ${transactions.length}/${withdrawals.length} withdrawals in ${(
+      `Processed ${withdrawals.length} withdrawals in ${(
         (Date.now() - start) /
         60
       ).toFixed(2)} seconds.`
@@ -49,10 +52,6 @@ async function fetchWithdrawals() {
     .then((r) => r.items);
 }
 
-// TODO: Create CrossChainMessanger
-const crossChainMessenger = {
-  proveMessage: () => Promise.resolve(),
-  finalizeMessage: () => Promise.resolve(),
-};
+const crossChainMessenger = await createCrossChainMessanger();
 
 run({ crossChainMessenger });
